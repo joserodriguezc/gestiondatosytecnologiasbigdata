@@ -6,9 +6,11 @@ readme = "README.md"
 authors = [
     { name = "José Ignacio Rodríguez", email = "69468130+joserodriguezc@users.noreply.github.com" }
 ]
-requires-python = ">=3.14"
+requires-python = ">=3.14,<3.15"
 dependencies = [
-    "pyspark>=4.3.0",
+    "ipykernel>=7.4.0",
+    "jupyterlab>=4.6.5",
+    "pyspark==4.3.0",
 ]
 
 [project.scripts]
