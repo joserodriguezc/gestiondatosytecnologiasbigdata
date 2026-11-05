@@ -12,3 +12,7 @@ wheels/
 
 # Editor
 .vscode/
+
+# Jupyter y Spark
+.ipynb_checkpoints/
+spark-warehouse/

@@ -1,7 +1,7 @@
 [project]
 name = "gestiondatosytecnologiasbigdata"
 version = "0.1.0"
-description = "Add your description here"
+description = "Taller 1 de Gestión de datos y tecnologías Big Data con Apache Spark"
 readme = "README.md"
 authors = [
     { name = "José Ignacio Rodríguez", email = "69468130+joserodriguezc@users.noreply.github.com" }
@@ -12,10 +12,3 @@ dependencies = [
     "jupyterlab>=4.6.5",
     "pyspark==4.3.0",
 ]
-
-[project.scripts]
-gestiondatosytecnologiasbigdata = "gestiondatosytecnologiasbigdata:main"
-
-[build-system]
-requires = ["uv_build>=0.12.13,<0.13.0"]
-build-backend = "uv_build"
