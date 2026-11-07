@@ -1,6 +1,6 @@
 # Guion del video — Taller 1
 
-Video grupal `mcdi502_s2_grupo1_video.mp4`, de 7 a 10 minutos. Cada integrante presenta su bloque mostrando las salidas del notebook ya ejecutado.
+Video grupal `mcdi502s2_grupo1.mp4`, de 7 a 10 minutos. Cada integrante presenta su bloque mostrando las salidas del notebook ya ejecutado.
 
 | Tramo | Integrante | Bloque | Secciones del notebook |
 |---|---|---|---|
@@ -24,7 +24,7 @@ En todos los bloques: no lean las consultas completas. Muestren sus salidas y ex
 
 **4:00–5:00 — integración.** «Usamos Resultado como eje porque cada fila representa una participación. Antes del join comprobamos que las claves de cada dimensión sean únicas. Usamos joins izquierdos para conservar las participaciones que no tienen equipo identificado. Los controles comparan el conteo de entrada con el final y verifican que cada resultado siga apareciendo una sola vez». Muestra los 271.116 registros conciliados y una fila sin equipo.
 
-**5:00–6:00 — optimización, paralelismo e inspección.** «Las dimensiones pequeñas se distribuyen con broadcast, luego de verificar su tamaño. Persistimos la tabla integrada porque la inspección y las consultas de José la reutilizan. Reparticionamos a cinco: mostramos que se pasa de 8 a 5 particiones y cuántas filas contiene cada una. Son particiones lógicas, no cinco computadores. La inspección muestra la cantidad de filas, los tipos y el esquema». Muestra el cambio de particiones y la salida de la sección 6.
+**5:00–6:00 — optimización, paralelismo e inspección.** «Las dimensiones pequeñas se distribuyen con broadcast, luego de verificar su tamaño. Persistimos la tabla integrada porque la inspección y las consultas de José la reutilizan. Reparticionamos a cinco: mostramos cuántas particiones había antes, que ahora son 5 y cuántas filas contiene cada una. Son particiones lógicas, no cinco computadores. La inspección muestra la cantidad de filas, los tipos y el esquema». Muestra el cambio de particiones y la salida de la sección 6.
 
 ## Bloque de José Ignacio Rodríguez — secciones 7, 8 y 10
 

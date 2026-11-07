@@ -75,7 +75,7 @@ flowchart LR
 | RDDs | `textFile` con 6 particiones, `union`, `filter`, `map` | Conciliación 67.786 + 67.785 = 135.571; ids únicos |
 | DataFrames | Esquemas explícitos y lectura `FAILFAST` | Unicidad de claves y *anti joins* para referencias huérfanas |
 | Integración | Proyección de columnas, *broadcast* de dimensiones pequeñas y *left joins* | Filas integradas = filas de Resultado; `resultado_id` único |
-| Paralelismo | `repartition(5)` y `persist(MEMORY_AND_DISK)` | 8 → 5 particiones y filas por partición |
+| Paralelismo | `repartition(5)` y `persist(MEMORY_AND_DISK)` | Particiones antes y después (5) y filas por partición |
 | Columnas calculadas | IMC = peso / (altura / 100)², solo con medidas válidas | Caso conocido (180 cm, 80 kg → 24,69) y casos inválidos que dan nulo |
 | Agregaciones | `spark.sql` con `CASE WHEN`, `GROUP BY`, `COUNT`, `SUM`, `AVG`, `MAX`, `MIN` | Totales conciliados con la entrada; mínimo ≤ promedio ≤ máximo |
 
