@@ -4,8 +4,8 @@ Trabajos del curso, uno por carpeta:
 
 | Carpeta | Contenido |
 |---|---|
-| [`sumativa1/`](sumativa1/) | Taller 1: procesamiento de datos olímpicos con Apache Spark (RDDs, DataFrames y Spark SQL). |
-| [`sumativa2/`](sumativa2/) | Sumativa 2 (en preparación). |
+| [`sumativa2/`](sumativa2/) | Taller 1: procesamiento de datos olímpicos con Apache Spark (RDDs, DataFrames y Spark SQL). |
+| [`sumativa3/`](sumativa3/) | Taller II: ingesta de sensores con PySpark. |
 
 ## Entorno
 

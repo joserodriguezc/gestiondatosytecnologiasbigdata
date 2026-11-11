@@ -124,7 +124,7 @@ La unidad de análisis es la **participación** (271.116), no la persona (135.57
 ## Estructura del repositorio
 
 ```text
-sumativa1/
+sumativa2/
 ├── notebooks/
 │   └── mcdi502_s2_grupo1.ipynb  # Notebook ejecutable con salidas guardadas
 ├── data/                     # Archivos fuente del curso
@@ -153,7 +153,7 @@ uv sync --locked
 uv run jupyter lab
 ```
 
-Abrir [`sumativa1/notebooks/mcdi502_s2_grupo1.ipynb`](notebooks/mcdi502_s2_grupo1.ipynb), seleccionar el kernel del entorno `.venv` y ejecutar todas las celdas desde un kernel reiniciado. El notebook busca la carpeta `data/` desde el directorio actual hacia arriba, por lo que funciona si Jupyter se inicia en `sumativa1/` o dentro de `sumativa1/notebooks/`.
+Abrir [`sumativa2/notebooks/mcdi502_s2_grupo1.ipynb`](notebooks/mcdi502_s2_grupo1.ipynb), seleccionar el kernel del entorno `.venv` y ejecutar todas las celdas desde un kernel reiniciado. El notebook busca la carpeta `data/` desde el directorio actual hacia arriba, por lo que funciona si Jupyter se inicia en `sumativa2/` o dentro de `sumativa2/notebooks/`.
 
 La celda 1.1 prepara el entorno sin intervención manual:
 
