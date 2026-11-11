@@ -16,3 +16,6 @@ wheels/
 # Jupyter y Spark
 .ipynb_checkpoints/
 spark-warehouse/
+
+anaconda_projects
+.virtual_documents
