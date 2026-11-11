@@ -1,11 +1,12 @@
 # Gestión de datos y tecnologías Big Data (MCDI502)
 
-Trabajos del curso, uno por carpeta:
+Evaluaciones sumativas del curso:
 
-| Carpeta | Contenido |
+| Sumativa | Contenido |
 |---|---|
-| [`sumativa1/`](sumativa1/) | Taller 1: procesamiento de datos olímpicos con Apache Spark (RDDs, DataFrames y Spark SQL). |
-| [`sumativa2/`](sumativa2/) | Sumativa 2 (en preparación). |
+| `sumativa1` | Prueba de conocimientos de Big Data en Canvas (no se registra en el repositorio). |
+| [`sumativa2/`](sumativa2/) | Taller 1: procesamiento de datos olímpicos con Apache Spark (RDDs, DataFrames y Spark SQL). |
+| [`sumativa3/`](sumativa3/) | Taller II: ingesta de sensores con PySpark. |
 
 ## Entorno
 
