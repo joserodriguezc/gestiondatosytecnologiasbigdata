@@ -1,42 +1,47 @@
-# Taller II — Bloque de Sebastián
+# Taller II — Integración de fuentes heterogéneas con PySpark
 
-Notebook: `notebooks/sebastian_entorno_sensores.ipynb`.
+Notebook de entrega: [`notebooks/mcdi502_s3_grupo1.ipynb`](notebooks/mcdi502_s3_grupo1.ipynb).
+
+| Sección | Contenido | Responsable |
+|---|---|---|
+| 1 | Instalación de Spark, Java y librerías; SparkSession y SparkContext; credenciales | Sebastián · José |
+| 2.1 · 2.2 | OpenMeteo → `df_openmeteo`; AQICN → `df_aqicn` | José |
+| 2.3 · 2.4 | MongoDB → `df_mongo_bpm`; MySQL/REST → `df_mysql_dht` | Sebastián |
+| 3.1 · 3.2 | `altura_metros`; `condicion_clima` | Sebastián · José |
+| 4 · 5 | `df_unificado`; vistas temporales y C1–C7 | Yerko |
 
 ## Ejecutar en VS Code
 
-1. Instalar uv, JDK 17 y las extensiones Python y Jupyter de VS Code.
+1. Instalar uv y las extensiones Python y Jupyter de VS Code. Si no hay un JDK 17 o superior, la celda 1.1 lo instala.
 2. Desde la raíz del repositorio, ejecutar `uv sync --locked`.
-3. Seleccionar el kernel del entorno `.venv` de la raíz. En Windows el ejecutable es `.venv\Scripts\python.exe`; en Linux/macOS, `.venv/bin/python`.
-4. Configurar `JAVA_HOME` con la ruta del JDK de cada equipo. El notebook usa la instalación Linux conocida solo si no existe esa variable.
-5. Aprovisionar la URI del docente en `MONGODB_URI` o introducirla en la entrada oculta. En este equipo está en `.local/mongodb.json`, excluido de Git. No compartir ese archivo en el ZIP ni en capturas.
-6. Reiniciar el kernel y ejecutar todas las celdas. No copiar `.venv` entre equipos.
+3. Seleccionar como kernel el `.venv` de la raíz. En Windows el ejecutable es `.venv\Scripts\python.exe`; en Linux y macOS, `.venv/bin/python`.
+4. Aprovisionar las credenciales (ver abajo).
+5. Reiniciar el kernel y ejecutar todas las celdas. No copiar `.venv` entre equipos.
 
-## Fuentes
+En Google Colab basta con subir el notebook y ejecutar todo: la celda 1.1 instala Java 17, PySpark 4.3.0 y PyMongo, y las credenciales se piden con una entrada oculta.
 
-Los ejemplos del docente proporcionan MongoDB `telemetria.lecturas` y el endpoint PHP `http://mgtt.comunidadingenieria.cl/obtener_datos.php` para MySQL.
+## Credenciales
 
-MongoDB: `altitudFt` se renombra a `alturaft`; se calcula `altura_metros`. `presionAtm`, `presionPa` y `ppmCO` se conservan con nombres descriptivos. Confirmar unidades con el docente.
+El notebook las busca en este orden: variable de entorno, archivo privado en `.local/` (en esta carpeta, junto a `notebooks/`) y entrada oculta.
 
-MySQL: `temperatura` se renombra a `temperatura_interior`. Se conservan ID, humedad, fecha original y fecha tipada sin zona horaria; confirmar la zona de origen antes de hacer un join temporal.
+| Credencial | Variable | Archivo |
+|---|---|---|
+| URI de MongoDB del docente | `MONGODB_URI` | `.local/mongodb.json` → `{"uri": "..."}` |
+| Token personal de AQICN ([solicitar](https://aqicn.org/data-platform/token)) | `AQICN_TOKEN` | `.local/aqicn.json` → `{"token": "..."}` |
 
-Se eligen 100 registros recientes ordenados por fecha descendente e ID descendente. La selección puede cambiar si las fuentes reciben nuevas filas. Los controles se ejecutan sobre los registros extraídos en cada sesión.
+`.local/` y `notebooks_ejemplos/` están excluidos de Git: los notebooks del docente contienen la URI de MongoDB en texto plano. No incluirlos en el ZIP ni en capturas.
 
-## Conexión actualizada
+## Decisiones de las fuentes
 
-Se reemplazó la conexión anterior por la URI del nuevo ejemplo del docente y la colección `telemetria.lecturas`. La conexión en modo lectura devolvió 100 registros. El esquema conserva `altitudFt`, `presionAtm`, `presionPa`, `ppmCO` y `fecha`.
+- **OpenMeteo:** serie horaria de los últimos 7 días completos de Santiago (`past_days=7`, `forecast_days=0`). Se toman 100 horas repartidas de forma determinista entre las 168. La serie completa se conserva en `df_openmeteo_serie`.
+- **AQICN:** el token `demo` del ejemplo siempre devuelve datos de Shanghái. Con un token propio se buscan las estaciones de la región (`map/bounds`, ampliando la búsqueda hasta Chile) y se consulta el feed de cada una, de la más cercana a Santiago a la más lejana. AQICN publica solo unas 50 estaciones chilenas, así que las 100 filas se completan con una segunda ronda de consultas, identificada en la columna `ronda`. Al 11/11 la red no publicaba lecturas nuevas desde el 09/11, por lo que la segunda ronda repite valores; el notebook informa la antigüedad de las lecturas. Los contaminantes son sub-índices AQI (escala US EPA), no µg/m³.
+- **MongoDB:** se usa `telemetria.lecturas` con PyMongo. El conector de Spark del ejemplo (`mongo-spark-connector_2.12:3.0.1`) es para Spark 3 y no funciona con Spark 4. Se leen las 100 lecturas más recientes por `fecha` e `_id`. Campos: `altitudFt` → `alturaft`, `presionAtm` → `presion_atmosferica`, `ppmCO` → `monoxido_carbono`, `presionPa` → `presion_pa`.
+- **MySQL:** se usa el endpoint PHP `http://mgtt.comunidadingenieria.cl/obtener_datos.php`. `temperatura` se renombra a `temperatura_interior`. Se conservan el ID, la humedad, la fecha original y la fecha tipada sin zona horaria.
 
-La ejecución local completa terminó sin errores: ambas fuentes tienen 100 filas, 100 IDs únicos y cero nulos en la muestra; la conversión de altura pasó sus controles. El notebook se ejecuta desde una sesión limpia y exige que ambas fuentes pasen sus controles; ya no omite el error de MongoDB para continuar con MySQL.
+## Observación para la integración
 
-## Traspaso
-
-Acordar ciudad, esquema y orden con José y Yerko. Entregar los dos DataFrames con 100 filas y controles ejecutados tras ejecutar los controles. El jueves, revisar integración/SQL y grabar el segmento asignado.
+Las fuentes no comparten un período común. MongoDB y MySQL tienen unas cinco horas de diferencia (por ejemplo, 13:41 contra 08:41 en la misma extracción), y la zona horaria de MySQL no está declarada. No conviene unir por fecha: se recomienda un índice ordinal reproducible por fuente, conservando las fechas y claves originales.
 
 ## Referencias
 
-Notebooks base del docente: `-BaseEjemploMongoDB.ipynb` y `-BaseEjemploMysqlPHP_APIRest.ipynb`. Se adaptó la lectura MongoDB a PyMongo y se mantuvo el acceso MySQL mediante PHP.
-
-https://www.mongodb.com/docs/languages/python/pymongo-driver/current/crud/query/specify-documents-to-return/
-
-## Observación para integrar
-
-En la ejecución verificada, MongoDB mostró fechas alrededor de las 22:02 en America/Santiago y MySQL alrededor de las 17:02, con aproximadamente cinco horas de diferencia. La zona de MySQL no está declarada: no aplicar una corrección fija ni hacer un join por fecha hasta confirmarla. Compartir esta observación con Yerko.
+Notebooks base del docente (Semana 3): `-BaseEjemploOpenMeteo.ipynb`, `-BaseEjemploAQICN.ipynb`, `-BaseEjemploMongoDB.ipynb` y `-BaseEjemploMysqlPHP_APIRest.ipynb`. Documentación: [OpenMeteo](https://open-meteo.com/en/docs), [AQICN JSON API](https://aqicn.org/json-api/doc/) y [PyMongo](https://www.mongodb.com/docs/languages/python/pymongo-driver/current/crud/query/specify-documents-to-return/).
