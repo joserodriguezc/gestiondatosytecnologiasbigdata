@@ -38,9 +38,12 @@ El notebook las busca en este orden: variable de entorno, archivo privado en `.l
 - **MongoDB:** se usa `telemetria.lecturas` con PyMongo. El conector de Spark del ejemplo (`mongo-spark-connector_2.12:3.0.1`) es para Spark 3 y no funciona con Spark 4. Se leen las 100 lecturas más recientes por `fecha` e `_id`. Campos: `altitudFt` → `alturaft`, `presionAtm` → `presion_atmosferica`, `ppmCO` → `monoxido_carbono`, `presionPa` → `presion_pa`.
 - **MySQL:** se usa el endpoint PHP `http://mgtt.comunidadingenieria.cl/obtener_datos.php`. `temperatura` se renombra a `temperatura_interior`. Se conservan el ID, la humedad, la fecha original y la fecha tipada sin zona horaria.
 
-## Observación para la integración
+## Integración y consultas
 
-Las fuentes no comparten un período común. MongoDB y MySQL tienen unas cinco horas de diferencia (por ejemplo, 13:41 contra 08:41 en la misma extracción), y la zona horaria de MySQL no está declarada. No conviene unir por fecha: se recomienda un índice ordinal reproducible por fuente, conservando las fechas y claves originales.
+- **Estrategia:** las fuentes no comparten período ni granularidad, así que no se unen por fecha. Cada una recibe un índice ordinal `idx = 1…100` con `row_number()` sobre su orden documentado (OpenMeteo por hora ascendente; AQICN por distancia, estación y ronda; MongoDB y MySQL por fecha e ID descendentes). Las cuatro se unen por `idx`, con prefijos `om_`, `aq_`, `mg_` y `my_`, y se controla la cardinalidad en cada unión. Se conservan las fechas y claves originales.
+- **Límite:** el emparejamiento solo presenta los datos juntos. La excepción es el par MongoDB–MySQL: ambos registran los mismos eventos del ESP32 con 5 horas exactas de diferencia (MySQL no declara zona horaria), y la sección 4.5 lo comprueba par a par.
+- **Vistas temporales:** `openmeteo`, `aqicn`, `mongo_bpm`, `mysql_dht` y, como apoyo para C3, `openmeteo_serie` (168 horas).
+- **Consultas:** C2 usa el último día presente en la muestra, porque la muestra cambia en cada ejecución. C3 informa la muestra de 100 horas y la serie completa. C4 y C5 trabajan en la escala de sub-índices AQI e informan las 100 capturas y las observaciones distintas. C5 excluye NO2 = 4.
 
 ## Referencias
 
