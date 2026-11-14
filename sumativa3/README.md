@@ -1,6 +1,23 @@
 # Taller II — Integración de fuentes heterogéneas con PySpark
 
+Sumativa 3 del curso **Gestión de datos y tecnologías Big Data** (MCDI502). Grupo 1: Yerko Gallardo, Sebastián Rojas y José Ignacio Rodríguez.
+
 Notebook de entrega: [`notebooks/mcdi502_s3_grupo1.ipynb`](notebooks/mcdi502_s3_grupo1.ipynb).
+
+## Estructura
+
+```text
+sumativa3/
+├── README.md
+├── .gitignore
+├── notebooks/
+│   └── mcdi502_s3_grupo1.ipynb   notebook maestro (se entrega)
+├── .local/                       credenciales privadas (no versionada)
+├── notebooks_ejemplos/           notebooks base del docente (no versionada)
+└── planificacion/                planificación del equipo (no versionada)
+```
+
+## Secciones del notebook
 
 | Sección | Contenido | Responsable |
 |---|---|---|
@@ -9,6 +26,11 @@ Notebook de entrega: [`notebooks/mcdi502_s3_grupo1.ipynb`](notebooks/mcdi502_s3_
 | 2.3 · 2.4 | MongoDB → `df_mongo_bpm`; MySQL/REST → `df_mysql_dht` | Sebastián |
 | 3.1 · 3.2 | `altura_metros`; `condicion_clima` | Sebastián · José |
 | 4 · 5 | `df_unificado`; vistas temporales y C1–C7 | Yerko |
+| 6 · 7 | Guion del video y fuentes | Todos |
+
+## Entrega
+
+Un ZIP con el notebook ejecutado (`mcdi502_s3_grupo1.ipynb`) y el video de 7 a 10 minutos con los tres integrantes (`mcdi502_s3_grupo1_video.mp4`). No incluir `.local/`, `notebooks_ejemplos/` ni `planificacion/`.
 
 ## Ejecutar en VS Code
 
