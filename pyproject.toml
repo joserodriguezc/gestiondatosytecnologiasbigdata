@@ -1,7 +1,7 @@
 [project]
 name = "gestiondatosytecnologiasbigdata"
 version = "0.1.0"
-description = "Taller 1 de Gestión de datos y tecnologías Big Data con Apache Spark"
+description = "Talleres I y II de Gestión de datos y tecnologías Big Data con Apache Spark"
 readme = "README.md"
 authors = [
     { name = "José Ignacio Rodríguez", email = "69468130+joserodriguezc@users.noreply.github.com" }
