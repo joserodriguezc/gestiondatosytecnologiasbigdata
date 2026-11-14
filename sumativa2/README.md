@@ -1,6 +1,6 @@
 # Procesamiento de datos olímpicos con Apache Spark
 
-Taller 1 del curso **Gestión de datos y tecnologías Big Data** (MCDI502). Es un flujo reproducible en PySpark que integra el registro histórico de los Juegos Olímpicos y lo analiza con RDDs, DataFrames y Spark SQL.
+Taller I del curso **Gestión de datos y tecnologías Big Data** (MCDI502). Es un flujo reproducible en PySpark que integra el registro histórico de los Juegos Olímpicos y lo analiza con RDDs, DataFrames y Spark SQL.
 
 ![Python](https://img.shields.io/badge/Python-3.14-3776AB?logo=python&logoColor=white)
 ![PySpark](https://img.shields.io/badge/PySpark-4.3.0-E25A1C?logo=apachespark&logoColor=white)

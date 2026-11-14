@@ -1,4 +1,4 @@
-# Guion del video — Taller 1
+# Guion del video — Taller I
 
 Video grupal `mcdi502s2_grupo1.mp4`, de 7 a 10 minutos. Cada integrante presenta su bloque mostrando las salidas del notebook ya ejecutado.
 
