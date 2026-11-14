@@ -10,6 +10,8 @@ Notebook de entrega: [`notebooks/mcdi502_s3_grupo1.ipynb`](notebooks/mcdi502_s3_
 sumativa3/
 ├── README.md
 ├── .gitignore
+├── docs/
+│   └── Sumativa3_PySpark.pptx    presentación de apoyo para el video
 ├── notebooks/
 │   └── mcdi502_s3_grupo1.ipynb   notebook maestro, sin datos de acceso
 ├── entrega/                      copia de entrega con los datos de acceso (no versionada)
