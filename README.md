@@ -6,7 +6,7 @@ Evaluaciones sumativas del curso:
 |---|---|
 | `sumativa1` | Prueba de conocimientos de Big Data en Canvas (no se registra en el repositorio). |
 | [`sumativa2/`](sumativa2/) | Taller 1: procesamiento de datos olímpicos con Apache Spark (RDDs, DataFrames y Spark SQL). |
-| [`sumativa3/`](sumativa3/) | Taller II: ingesta de sensores con PySpark. |
+| [`sumativa3/`](sumativa3/) | Taller II: integración de fuentes heterogéneas con PySpark (APIs OpenMeteo y AQICN, sensores ESP32 en MongoDB y MySQL) y consultas con Spark SQL. |
 
 ## Entorno
 
